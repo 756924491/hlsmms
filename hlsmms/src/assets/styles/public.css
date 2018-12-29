@@ -1,0 +1,142 @@
+/* 公共样式 */
+a{text-decoration: none;color: #D1D0CF;}
+html,body{margin: 0}
+html,body,#loginbox,#app,#home{
+    height: 100%;
+}
+
+/* 左边部分 */
+.el-aside {
+    background:url('../images/leftBG.png') repeat-y;
+    color: #D1D0CF;
+    text-align: right;
+    min-height: 100%;
+}
+
+/* 右边标题 */
+#leftTitle{
+    font-size: 14px;
+    padding: 0 20px 0 0;
+}
+
+#leftTitle h2{
+    line-height: 60px;
+}
+#leftTitle p>span:first-of-type{color: #888}
+#leftTitle p{
+    line-height: 26px;
+}
+
+/* 左边菜单 */
+.el-menu{
+    background: transparent;
+    width: 206px;
+    margin-left: 24px;
+    border: none;
+}
+
+/* 左边菜单内标题 */
+.el-submenu__title {
+    margin-bottom: 10px;
+    background: url('../images/menuBG.png');
+    height: 33px;
+    line-height: 33px;
+    border-radius: 5px 0 0 5px;
+    color: #fff;
+}
+
+/* 左边菜单小箭头 */
+.el-submenu__icon-arrow{
+    display: none;
+}
+
+/* 左边菜单内容 */
+.el-menu--inline{
+    margin-left: 0;
+}
+
+.el-menu-item-group__title{
+    padding: 0;
+}
+
+/* 左边子菜单 */
+.el-submenu .el-menu-item{
+    height: 26px;
+    line-height: 26px;
+    padding-right: 20px;
+    border-radius: 5px 0 0 5px;
+    color: rgb(175, 168, 168);   
+    margin-bottom: 5px; 
+}
+
+/* 左边菜单 hover 状态 */
+.el-menu-item:focus, .el-menu-item:hover{
+    background: rgba(255,255,255,.3);
+}
+
+/* 左边菜单 激活状态 */
+.el-menu-item.is-active{
+    background: rgba(255,255,255,.3);
+    color: #fff;
+    font-weight: bold;
+}
+
+
+/* ----------------------------------------------右边部分------------------------------------------ */
+/* 右边头部和顶部样式 */
+.el-container {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.el-header>h1{
+    font-size: 28px;
+    margin: 40px 0 0 0;
+}
+.el-header>p{
+    margin-bottom: 20px;
+}
+
+.el-footer>div{
+    border-top:1px solid #ccc;
+    height: 50px;
+    line-height: 50px;
+}
+
+/*  右边中间内容样式*/
+.el-card__header{
+    padding: 0 20px;
+    background: linear-gradient(#fff,#e5e5e5);
+}
+.el-main h4 {
+    margin: 0;
+    height: 40px;
+    line-height: 40px;
+}
+
+.el-alert{
+    margin-bottom: 10px;
+}
+
+
+/* 解决抽取组件后出现的左中右结果 */
+#rightContent{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#rightContent>*{
+    width: 100%;
+}
+/* #rightContent>.el-header{
+    height: 126px;
+} */
+#rightContent>.el-main{
+    /* min-height: 100px; */
+    max-height: 450px;
+}
+
+/* 解决左侧菜单栏高度问题 :
+    左侧菜单设最小高度为 100% 
+    右侧.el-main最大高度设为450px
+*/
