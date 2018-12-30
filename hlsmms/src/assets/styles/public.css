@@ -13,9 +13,9 @@ html,body,#loginbox,#app,#home{
     min-height: 100%;
 }
 
-/* 右边标题 */
+/* 左边标题 */
 #leftTitle{
-    font-size: 14px;
+    font-size: 16px;
     padding: 0 20px 0 0;
 }
 
@@ -38,7 +38,7 @@ html,body,#loginbox,#app,#home{
 /* 左边菜单内标题 */
 .el-submenu__title {
     margin-bottom: 10px;
-    background: url('../images/menuBG.png');
+    background: linear-gradient(90deg,#6BAF00,#408900);
     height: 33px;
     line-height: 33px;
     border-radius: 5px 0 0 5px;
@@ -88,6 +88,9 @@ html,body,#loginbox,#app,#home{
     background-color: #f8f8f8;
     color: #333;
 }
+.el-header,.el-footer{
+    font-size: 14px;
+}
 
 .el-header>h1{
     font-size: 28px;
@@ -107,6 +110,9 @@ html,body,#loginbox,#app,#home{
 .el-card__header{
     padding: 0 20px;
     background: linear-gradient(#fff,#e5e5e5);
+}
+.el-main{
+    padding: 0 20px;
 }
 .el-main h4 {
     margin: 0;
@@ -128,12 +134,9 @@ html,body,#loginbox,#app,#home{
 #rightContent>*{
     width: 100%;
 }
-/* #rightContent>.el-header{
-    height: 126px;
-} */
 #rightContent>.el-main{
-    /* min-height: 100px; */
-    max-height: 450px;
+     min-height: 100px; 
+    max-height: 500px;
 }
 
 /* 解决左侧菜单栏高度问题 :

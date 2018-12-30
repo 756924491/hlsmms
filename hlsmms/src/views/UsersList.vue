@@ -12,7 +12,22 @@
                 <div slot="header" class="clearfix">
                     <h4>账号管理</h4>
                 </div>
-               </el-card>
+                <!-- 账号列表 -->
+                <el-table :data="tableData" style="width: 100%">
+                    <el-table-column label="用户名称" width="260">
+                        <template slot-scope="scope">{{ scope.row.username }}</template>
+                    </el-table-column>
+                    <el-table-column label="用户组" width="260">
+                        <template slot-scope="scope">{{ scope.row.group }}</template>
+                    </el-table-column>
+                    <el-table-column label="管理"  width="260"  align='center'>
+                        <template slot-scope="scope">
+                            <el-button size="mini"  @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-edit"></i> 编辑</el-button>
+                            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i> 删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+              </el-card>
           </el-main>
           <!-- 右边底部 -->
           <RightBottom></RightBottom>
@@ -32,19 +47,14 @@ import RightBottom from '../components/RightBottom'
 
 export default {
     data(){
-        return{
-            tableData:[
-                {goodsname:'海飞丝去屑洗发水',salenum:'8'},
-                {goodsname:'海飞丝去屑洗发水',salenum:'8'},
-                {goodsname:'海飞丝去屑洗发水',salenum:'8'},
-                {goodsname:'海飞丝去屑洗发水',salenum:'8'}
-            ],
-            shortageData:[
-                {goodsname:'海飞丝去屑洗发水',stocknum:'0'},
-                {goodsname:'海飞丝去屑洗发水',stocknum:'0'},
-                {goodsname:'海飞丝去屑洗发水',stocknum:'0'}
+        return {
+            tableData: [
+                {username: 'admin',group: '超级管理员'}, 
+                {username: 'admin',group: '超级管理员'}, 
+                {username: 'admin',group: '超级管理员'}, 
+                {username: 'admin',group: '超级管理员'}
             ]
-        }
+      }
     },
     components: {
         //注册组件
@@ -52,6 +62,14 @@ export default {
         RightTop,
         RightBottom
     },
+    methods: {
+        handleEdit(index, row) {
+            console.log(index, row);
+        },
+        handleDelete(index, row) {
+            console.log(index, row);
+        }
+    }
 
     
 };

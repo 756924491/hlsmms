@@ -20,22 +20,55 @@ export default new Router({
       component: Login
     },
     //配置路由
+
+    //分类管理板块
     {
-      path:'/systemMsg',
-      component:() => import(/* webpackChunkName: "about" */ './views/System')
+      path:'/sortlist',
+      name:'sortlist',
+      component:() => import(/* webpackChunkName: "System" */ './views/SortList.vue')
     },
     {
+      path:'/sortadd',
+      name:'sortadd',
+      component:() => import(/* webpackChunkName: "System" */ './views/SortAdd.vue')
+    },
+    
+    //商品管理
+    {
+      path:'/goodslist',
+      name:'goodslist',
+      component:() => import(/* webpackChunkName: "System" */ './views/GoodsList.vue')
+    },
+    {
+      path:'/goodsadd',
+      name:'goodsadd',
+      component:() => import(/* webpackChunkName: "System" */ './views/GoodsAdd.vue')
+    },
+
+    //账号管理板块
+    {
       path:'/userlist',
-      component:() => import(/* webpackChunkName: "about" */ './views/UsersList')
+      name: 'userlist',
+      component:() => import(/* webpackChunkName: "UsersList" */ './views/UsersList')
     },
     {
       path:'/useradd',
-      component:() => import(/* webpackChunkName: "about" */ './views/UsersAdd')
+      name: 'useradd',
+      component:() => import(/* webpackChunkName: "UsersAdd" */ './views/UsersAdd')
     },
     {
       path:'/pwdedit',
-      component:() => import(/* webpackChunkName: "about" */ './views/UsersPwdEdit.vue')
-    }
+      name: 'pwdedit',
+      component:() => import(/* webpackChunkName: "UsersPwdEdit" */ './views/UsersPwdEdit')
+    },
+
+    //系统管理板块
+    {
+      path:'/systemmsg',
+      name:'systemmsg',
+      component:() => import(/* webpackChunkName: "System" */ './views/SystemMsg')
+    },
+
     //{
       //path: '/about',
       //name: 'about',

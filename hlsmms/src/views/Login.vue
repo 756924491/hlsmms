@@ -32,8 +32,8 @@ export default {
     data() {
         return {
             ruleForm2: {
-            pass: '',
-            username:''
+                pass: '',
+                username:''
             },
             rules2: {
                 pass: [
@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         submitForm(formName) {
-        //
+        //登录按钮点击事件
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     alert('前端验证成功!');
