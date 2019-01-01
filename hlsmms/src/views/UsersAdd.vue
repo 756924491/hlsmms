@@ -18,14 +18,14 @@
                         <el-form-item label="用户名：" prop="username">
                             <el-input type="text" v-model="ruleForm2.username" autocomplete="off"></el-input>
                         </el-form-item>
-                        <el-form-item label="密码：" prop="pass">
-                            <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+                        <el-form-item label="密码：" prop="userpwd">
+                            <el-input type="password" v-model="ruleForm2.userpwd" autocomplete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="确认密码：" prop="checkPass">
                             <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
                         </el-form-item>
-                        <el-form-item label="选择用户组：" prop="chooseGroup">
-                            <el-select v-model="ruleForm2.chooseGroup" placeholder="请选择用户组">
+                        <el-form-item label="选择用户组：" prop="usergroup">
+                            <el-select v-model="ruleForm2.usergroup" placeholder="请选择用户组">
                             <el-option label="超级管理员" value="超级管理员"></el-option>
                             <el-option label="普通管理员" value="普通管理员"></el-option>
                             </el-select>
@@ -59,7 +59,7 @@ export default {
         var validatePassCheck = (rule, value, callback) => {
             if (value === '') {
             callback(new Error('请再次输入密码'));
-            } else if (value !== this.ruleForm2.pass) {
+            } else if (value !== this.ruleForm2.userpwd) {
             callback(new Error('两次输入密码不一致!'));
             } else {
             callback();
@@ -67,13 +67,13 @@ export default {
         };
         return{
             ruleForm2: {
-                pass: '',
+                userpwd: '',
                 username:'',
                 checkPass:'',
-                chooseGroup:''
+                usergroup:''
             },
             rules2: {
-                pass: [
+                userpwd: [
                     //设置密码的验证规则    
                     { required:true, message:'密码不能为空',trigger: 'blur' }, //非空验证
                     { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }  //长度验证
@@ -89,7 +89,7 @@ export default {
                     { required:true, message:'用户名不能为空', trigger: 'blur' },  //非空验证
                     { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }  // 长度验证
                 ],
-                chooseGroup:[
+                usergroup:[
                     { required: true, message: '请选择用户组', trigger: 'change' }
                 ]
             }
@@ -102,14 +102,34 @@ export default {
         RightBottom
     },
     methods: {
+        //提交表单的方法
         submitForm(formName) {
-        //
+            //验证规则后的结果
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     alert('前端验证成功!');
                     //发送  ajax  到后端验证用户名和密码的有效性
-                    //实现跳转效果
-                    this.$router.push('/')
+                    this.axios.post('http://127.0.0.1:9090/users/usersadd',this.qs.stringify(this.ruleForm2))
+                    .then(result =>{
+                        //根据返回的结果处理业务逻辑
+                        if(result.data.isOk){
+                            //添加成功  element中的组件，弹出信息
+                            this.$message({
+                                message:result.data.msg,
+                                type:'success'
+                            });
+                            setTimeout(() => {
+                                //成功后跳转到用户列表  element中的组件，弹出信息
+                                this.$router.push("/userlist");
+                            }, 100);
+                        }else{
+                            //添加失败
+                            this.$message.error(result.data.msg)
+                        }
+                        
+                    }).catch(err => {
+                        console.error('服务器错误返回的信息',err)
+                    })
                 } else {
                     console.log('error submit!!');
                     return false;

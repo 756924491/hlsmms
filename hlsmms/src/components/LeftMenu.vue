@@ -3,7 +3,7 @@
           <div id="leftTitle">
             <h2>华联超市管理系统</h2>
             <p><span>您好，</span><span>admin</span></p>
-            <p><a href="">管理首页</a> | <a href="">退出系统</a></p>
+            <p><a href="">管理首页</a> | <a href="javascript:void(0)" @click='loginOut()'>退出系统</a></p>
           </div>
           <el-menu :default-active="$route.path"  :unique-opened ='true' class="el-menu-vertical-demo"  @open="handleOpen" @close="handleClose">
               <el-submenu index="1">
@@ -90,6 +90,24 @@
 <script>
 export default {
     methods: {
+        //退出登录的方法
+        loginOut(){
+            //发起 ajax 退出登录 清除cookie数据
+            this.axios.get('http://127.0.0.1:9090/users/loginout')
+            .then(result => {
+                //console.log(result)
+                if(result.data.isOk){
+                    this.$message({
+                        message: '退出成功！ 欢迎下次登录!',
+                        type: 'success'
+                    });
+                    //跳转到登录页面
+                    this.$router.push('/login')
+                }
+            }).catch(err => {
+                console.log(err.message)
+            })
+        },
         handleOpen(key, keyPath) {
             console.log(key, keyPath);
         },

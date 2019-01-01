@@ -13,8 +13,8 @@
                     <el-form-item label="用户名" prop="username">
                         <el-input type="text" v-model="ruleForm2.username" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="密码" prop="pass">
-                        <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+                    <el-form-item label="密码" prop="userpwd">
+                        <el-input type="password" v-model="ruleForm2.userpwd" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
@@ -32,11 +32,11 @@ export default {
     data() {
         return {
             ruleForm2: {
-                pass: '',
+                userpwd: '',
                 username:''
             },
             rules2: {
-                pass: [
+                userpwd: [
                     //设置密码的验证规则    
                     { required:true, message:'密码不能为空',trigger: 'blur' }, //非空验证
                     { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }  //长度验证
@@ -54,10 +54,31 @@ export default {
         //登录按钮点击事件
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('前端验证成功!');
+                    //发送ajax前，必须要携带证书
+                    this.axios.defaults.withCredentials=true;
                     //发送  ajax  到后端验证用户名和密码的有效性
-                    //实现跳转效果
-                    this.$router.push('/')
+                        //console.log(this.ruleForm2);
+                    this.axios.post(
+                        'http://127.0.0.1:9090/users/checklogin',
+                        this.qs.stringify(this.ruleForm2)
+                        
+                    )
+                    .then(result => {
+                        //根据后台返回的结果判断登录成功或失败
+                        if(result.data.isOk){
+                            this.$message({
+                                message:'恭喜你'+result.data.msg,
+                                type: 'success',
+                            });
+                        //实现跳转效果
+                        this.$router.push('/')
+                        }else{
+                            this.$message.error(result.data.msg);
+                        }
+                    }).catch(err => {
+                        this.$message.error(err.message);
+                    })
+                    
                 } else {
                     console.log('error submit!!');
                     return false;
