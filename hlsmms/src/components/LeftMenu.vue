@@ -89,6 +89,9 @@
 
 <script>
 export default {
+    data(){
+        userlogin:''
+    },
     methods: {
         //退出登录的方法
         loginOut(){

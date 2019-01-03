@@ -33,17 +33,7 @@ import RightBottom from '../components/RightBottom'
 export default {
     data(){
         return{
-            tableData:[
-                {goodsname:'海飞丝去屑洗发水',salenum:'8'},
-                {goodsname:'海飞丝去屑洗发水',salenum:'8'},
-                {goodsname:'海飞丝去屑洗发水',salenum:'8'},
-                {goodsname:'海飞丝去屑洗发水',salenum:'8'}
-            ],
-            shortageData:[
-                {goodsname:'海飞丝去屑洗发水',stocknum:'0'},
-                {goodsname:'海飞丝去屑洗发水',stocknum:'0'},
-                {goodsname:'海飞丝去屑洗发水',stocknum:'0'}
-            ]
+            
         }
     },
     components: {

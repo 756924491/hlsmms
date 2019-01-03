@@ -192,7 +192,6 @@ export default {
                     //删除失败
                     this.$message.error('出错了：'+result.msg);
                 }
-                
             })
             .catch(err => {
                 this.$message.error('出错了：'+err.message)

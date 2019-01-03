@@ -61,7 +61,6 @@ export default {
                     this.axios.post(
                         'http://127.0.0.1:9090/users/checklogin',
                         this.qs.stringify(this.ruleForm2)
-                        
                     )
                     .then(result => {
                         //根据后台返回的结果判断登录成功或失败

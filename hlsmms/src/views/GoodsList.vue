@@ -13,60 +13,144 @@
                     <h4>商品管理</h4>
                 </div>
                 <!-- 搜索 -->
-                <el-form :inline="true" :model="formInline" class="demo-form-inline">
-                    <el-form-item label="">
-                        <el-select v-model="formInline.region" placeholder="-----------选择分类---------------">
-                        <el-option label="分类一" value="分类一"></el-option>
-                        <el-option label="分类二" value="分类二"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="关键字">
-                        <el-input v-model="formInline.user" ></el-input>
-                    </el-form-item>
-                    <span class="detail">（商品名称、条形码）</span>
-                    <el-form-item>
-                        <el-button type="primary" @click="onSubmit">查询</el-button>
-                    </el-form-item>
-                </el-form>
+                <div>
+                    <el-form :inline="true" :model="formSearch" class="demo-form-inline">
+                        <el-form-item label="">
+                        <el-select v-model="formSearch.classname" placeholder="请选择分类">
+                            <el-option label="零食" value="零食"></el-option>
+                            <el-option label="酒水" value="酒水"></el-option>
+                            <el-option label="烟草" value="烟草"></el-option>
+                            <el-option label="服装" value="服装"></el-option>
+                            <el-option label="糖果" value="糖果"></el-option>
+                            <el-option label="首饰" value="首饰"></el-option>
+                            <el-option label="护肤品" value="护肤品"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="关键字">
+                            <el-input v-model="formSearch.keywords" placeholder="查询商品名称、条形码"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="onSearch()"  icon="el-icon-search">查询</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
 
                 <hr>
                 <!-- 商品列表 -->
-                <el-table :data="tableData" style="width: 100%">
-                    <el-table-column label="商品条形码" width='120'>
-                        <template slot-scope="scope">{{ scope.row.goodsnum }}</template>
-                    </el-table-column>
-                    <el-table-column label="商品名称" width='100'>
-                        <template slot-scope="scope">{{ scope.row.goodsname }}</template>
-                    </el-table-column>
-                    <el-table-column label="所属分类" width='100'>
-                        <template slot-scope="scope">{{ scope.row.sortname }}</template>
-                    </el-table-column>
-                    <el-table-column label="售价（元）" width='95'>
-                        <template slot-scope="scope">{{ scope.row.price }}</template>
-                    </el-table-column>
-                    <el-table-column label="促销价（元）" width='95'>
-                        <template slot-scope="scope">{{ scope.row.sale }}</template>
-                    </el-table-column>
-                    <el-table-column label="市场价（元）" width='95'>
-                        <template slot-scope="scope">{{ scope.row.marketprice }}</template>
-                    </el-table-column>
-                    <el-table-column label="库存" width='60'>
-                        <template slot-scope="scope">{{ scope.row.sort }}</template>
-                    </el-table-column>
-                    <el-table-column label="库存总额（元）" width='110'>
-                        <template slot-scope="scope">{{ scope.row.allsort }}</template>
-                    </el-table-column>
-                    <el-table-column label="销售总额（元）" width='110'>
-                        <template slot-scope="scope">{{ scope.row.allprice }}</template>
-                    </el-table-column>
-                    <el-table-column label="管理"  width='160'>
-                        <template slot-scope="scope">
-                            <el-button size="mini"  @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-edit"></i> 编辑</el-button>
-                            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i> 删除</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-
+                <div>
+                    <el-table :data="tableData" style="width: 100%">
+                        <el-table-column label="商品条形码">
+                            <template slot-scope="scope">{{ scope.row.barcode }}</template>
+                        </el-table-column>
+                        <el-table-column label="商品名称">
+                            <template slot-scope="scope">{{ scope.row.goodsname  }}</template>
+                        </el-table-column>
+                        <el-table-column label="所属分类">
+                            <template slot-scope="scope">{{ scope.row.classname }}</template>
+                        </el-table-column>
+                        <el-table-column label="售价">
+                            <template slot-scope="scope">{{ scope.row.saleprice }}</template>
+                        </el-table-column>
+                        <el-table-column label="进价">
+                            <template slot-scope="scope">{{ scope.row.costprice }}</template>
+                        </el-table-column>
+                        <el-table-column label="市场价">
+                            <template slot-scope="scope">{{ scope.row.marketprice }}</template>
+                        </el-table-column>
+                        <el-table-column label="库存">
+                            <template slot-scope="scope">{{ scope.row.stocknum }}</template>
+                        </el-table-column>
+                        <!-- <el-table-column label="库存总额">
+                            <template slot-scope="scope">{{ scope.row.allsort }}</template>
+                        </el-table-column>
+                        <el-table-column label="销售总额">
+                            <template slot-scope="scope">{{ scope.row.allprice }}</template>
+                        </el-table-column> -->
+                        <el-table-column label="管理"  width='180'>
+                            <template slot-scope="scope">
+                                <el-button size="mini"  @click="handleEdit(scope.row.goodsid)"><i class="el-icon-edit"></i> 编辑</el-button>
+                                <el-button size="mini" type="danger" @click="handleDelete(scope.row.goodsid)"><i class="el-icon-delete"></i> 删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <!-- 对话框 -->
+                    <el-dialog
+                        title="提示"
+                        :visible.sync="dialogVisible"
+                        width="30%"
+                        :before-close="handleClose">
+                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                            <el-form-item label="商品分类" prop="classname">
+                                <el-select v-model="ruleForm.classname" placeholder="请选择分类">
+                                <el-option label="零食" value="零食"></el-option>
+                                <el-option label="酒水" value="酒水"></el-option>
+                                <el-option label="烟草" value="烟草"></el-option>
+                                <el-option label="服装" value="服装"></el-option>
+                                <el-option label="糖果" value="糖果"></el-option>
+                                <el-option label="首饰" value="首饰"></el-option>
+                                <el-option label="护肤品" value="护肤品"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="商品条形码" prop="barcode">
+                                <el-input v-model="ruleForm.barcode"></el-input>
+                                <el-button type="success" @click="createBarcode()">生成条码</el-button>
+                            </el-form-item>
+                            <el-form-item label="商品名称" prop="goodsname">
+                                <el-input v-model="ruleForm.goodsname"></el-input>
+                            </el-form-item>
+                            <el-form-item label="商品进价" prop="costprice">
+                                <el-input v-model="ruleForm.costprice" @blur="updatePrice()"></el-input>
+                            </el-form-item>
+                            <el-form-item label="商品售价" prop="saleprice">
+                                <el-input v-model="ruleForm.saleprice"></el-input>
+                            </el-form-item>
+                            <el-form-item label="市场价" prop="marketprice">
+                                <el-input v-model="ruleForm.marketprice"></el-input>
+                            </el-form-item>
+                            <el-form-item label="入库数量" prop="stocknum">
+                                <el-input v-model="ruleForm.stocknum"></el-input>
+                            </el-form-item>
+                            <el-form-item label="商品重量" prop="weight">
+                                <el-input v-model="ruleForm.weight"></el-input>
+                            </el-form-item>
+                            <el-form-item label="商品单位" prop="unit">
+                                <el-input v-model="ruleForm.unit"></el-input>
+                            </el-form-item>
+                            <el-form-item label="会员优惠" prop="isdiscount">
+                                <el-radio-group v-model="ruleForm.isdiscount">
+                                <el-radio label='1'>享受</el-radio>
+                                <el-radio label='0'>不享受</el-radio>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item label="是否促销" prop="ispromotion">
+                                <el-radio-group v-model="ruleForm.ispromotion">
+                                <el-radio label='1'>启用</el-radio>
+                                <el-radio label='0'>禁用</el-radio>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item label="商品简介" prop="details">
+                                <el-input type="textarea" row=5 v-model="ruleForm.details"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <span slot="footer" class="dialog-footer">
+                            <el-button @click="dialogVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+                        </span>
+                    </el-dialog>
+                </div>
+                <!-- 分页 -->
+                <div>
+                     <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[1, 2, 5, 10,20]"
+                        :page-size="pageSize"
+                        background
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                    </el-pagination>
+                </div>
                </el-card>
           </el-main>
           <!-- 右边底部 -->
@@ -88,33 +172,46 @@ import RightBottom from '../components/RightBottom'
 export default {
     data(){
         return{
-            formInline: {
-                user: '',
-                region: '',
-                goodsnum:'',
-                goodsname:'',
-                sortname:'',
-                price:'',
-                sale:'',
-                marketprice:'',
-                sort:'',
-                allsort:'',
-                allprice:''
- 
+            //默认当前页和每页尺寸
+            currentPage: 1,
+            pageSize:5,
+            total:0,
+            //对话框的显示隐藏
+            dialogVisible:false,
+            formSearch: {
+               classname:'',
+               keywords:''
             },
-           tableData: [
-                {
-                    goodsnum:'6911989262549',
-                    goodsname:'优乐美',
-                    sortname:'优乐美',
-                    price:'5.00',
-                    sale:'未促销',
-                    marketprice:'5.50',
-                    sort:'0（缺）',
-                    allsort:'0.00',
-                    allprice:'0.00'
-                }
-           ]
+           tableData: [],
+           ruleForm: {
+                barcode:'',
+                classname:'',
+                costprice:0,
+                details:'',
+                goodsname:'',
+                isdiscount:'',
+                ispromotion:'',
+                marketprice:0,
+                saleprice:0,
+                stocknum: '',
+                unit:'',
+                weight:'',
+                goodsid:''
+            },
+            rules: {
+                classname: [
+                    { required: true, message: '请输入商品分类', trigger: 'blur' }
+                ],
+                barcode: [
+                    { required: true, message: '请输入商品条形码', trigger: 'blur' }
+                ],
+                goodsname: [
+                    { required: true, message: '请输入商品名称', trigger: 'blur' }
+                ],
+                costprice: [
+                    { required: true, message: '请输入商品进价', trigger: 'blur' }
+                ]
+            }
         }
     },
     components: {
@@ -124,35 +221,122 @@ export default {
         RightBottom
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
-      },
-      handleEdit(index, row) {
-        console.log(index, row);
-      },
-      handleDelete(index, row) {
-        console.log(index, row);
-      }
-      }
+        //提交表单的方法
+        submitForm(formName) {
+            //验证规则后的结果
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    //console.log(this.qs.stringify(this.ruleForm).goodsid);
+                    
+                    //验证成功，发送 ajax
+                    this.axios.post('http://127.0.0.1:9090/goods/goodssave',this.qs.stringify(this.ruleForm))
+                    .then(result => {
+                        //根据后台返回的数据判断修改成功或失败
+                        if(result.data.isOk){
+                            //修改成功弹出的消息
+                            this.$message({
+                                message: result.data.msg,
+                                type: 'success'
+                            });
+                            //修改成功后，关闭对话框
+                            this.dialogVisible = false;
+                            //刷新 用户列表
+                            this.getGoods()
+                        }else{
+                            //修改失败弹出的消息
+                            this.$message.error('错了：'+result.data.msg);
+                        }                        
+                    }).catch(err => {
+                        this.$message.error('错了：'+err.message);
+                    })
+                }
+            });
+        },
+        //对话框是否关闭的方法
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+            .then(_ => {
+                done();
+            })
+            .catch(_ => {});
+        },
+        //该方法可以请求后端的数据
+        getGoods(){
+            //发送 axios 到后台查找数据  传入下拉框和关键字中的内容
+            this.axios.get(`http://127.0.0.1:9090/goods/getgoods?classname=${this.formSearch.classname}&keywords=${this.formSearch.keywords}&pagesize=${this.pageSize}&currentpage=${this.currentPage}`)
+            .then(result => {
+                //将结果赋值给数据模板，渲染页面
+                this.tableData = result.data.goodsArr;
+                this.total = result.data.total;
+            }).catch(err => {
+                console.log(err.message)
+            })
+        },
+        onSearch() {
+            this.getGoods();
+        },
+        handleEdit(goodsid) {
+           //发送 ajax 向后台请求数据
+           this.axios.get('http://127.0.0.1:9090/goods/goodsedit?goodsid='+goodsid)
+           .then(result => {
+               //console.log(result);
+               //将后端查询的数据赋值给数据模块
+               this.ruleForm = result.data[0];
+               //显示对话框，将内容回填到对话框中
+                this.dialogVisible = true;
+           }).catch(err => {
+               console.error(err.message)
+           })
+        },
+        handleDelete(goodsid) {
+            //弹出是否继续删除的提示框
+            this.$confirm('是否继续删除?', '提示', {
+                confirmButtonText: '是',
+                cancelButtonText: '否',
+                type: 'warning'
+            }).then(() => {
+                //确认继续添加的代码
+                //发送 axios 传入当前数据的 id 从后台删除数据
+                this.axios.get(`http://127.0.0.1:9090/goods/goodsdel?goodsid=${goodsid}`)
+                .then(result => {
+                    
+                }).catch(err => {
+                    console.error(err.message)
+                })
+            })
+            
+        },
+
+        //分页的方法
+        handleSizeChange(val) {
+            //将改变后的Neri重新赋值给 pagesize
+            this.pageSize = val;
+            //重新发送 ajax 去请求数据
+            this.getGoods();
+        },
+        handleCurrentChange(val) {
+            //将改变后的当前页码重新赋值给 currentpage
+            this.currentPage = val;
+            //重新发送 ajax 去请求数据
+            this.getGoods();
+        }
+    },
+    //钩子函数 created
+    created(){
+         this.getGoods();
+    }
     
     
 };
 </script>
 
 <style>
-
-.detail{
-    font-size: 12px;
-    display: inline-block;
-    height: 40px;
-    line-height: 40px;
-    vertical-align: middle
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: rgb(61, 202, 52);
 }
-.el-table{
-    font-size: 10px!important;
-}
-.el-table .cell{
-    padding: 0;
+.el-button--primary {
+    background-color: rgb(61, 202, 52);
+    border-color:rgb(61, 202, 52)
 }
 </style>
 

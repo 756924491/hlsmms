@@ -25,24 +25,24 @@ export default new Router({
     {
       path:'/sortlist',
       name:'sortlist',
-      component:() => import(/* webpackChunkName: "System" */ './views/SortList.vue')
+      component:() => import(/* webpackChunkName: "SortList" */ './views/SortList.vue')
     },
     {
       path:'/sortadd',
       name:'sortadd',
-      component:() => import(/* webpackChunkName: "System" */ './views/SortAdd.vue')
+      component:() => import(/* webpackChunkName: "SortAdd" */ './views/SortAdd.vue')
     },
     
     //商品管理
     {
       path:'/goodslist',
       name:'goodslist',
-      component:() => import(/* webpackChunkName: "System" */ './views/GoodsList.vue')
+      component:() => import(/* webpackChunkName: "GoodsList" */ './views/GoodsList.vue')
     },
     {
       path:'/goodsadd',
       name:'goodsadd',
-      component:() => import(/* webpackChunkName: "System" */ './views/GoodsAdd.vue')
+      component:() => import(/* webpackChunkName: "GoodsAdd" */ './views/GoodsAdd.vue')
     },
 
     //账号管理板块
